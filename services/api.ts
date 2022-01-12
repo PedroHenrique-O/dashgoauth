@@ -97,5 +97,6 @@ export function setUpAPIClient(ctx = undefined) {
       return Promise.reject(error);
     }
   );
+
   return api;
 }
