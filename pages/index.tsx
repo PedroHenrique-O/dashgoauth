@@ -1,5 +1,9 @@
+import { GetServerSideProps } from "next";
 import { useContext, useState } from "react";
 import { AuthContext } from "../src/context/AuthContext";
+import { parseCookies } from "nookies";
+import { redirect } from "next/dist/server/api-utils";
+import { withSSRGuest } from "../utils/withSSRGuest";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -38,3 +42,13 @@ export default function Home() {
     </form>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = withSSRGuest(
+  async (ctx) => {
+    return {
+      props: {
+        users: ["ads"],
+      },
+    };
+  }
+);
