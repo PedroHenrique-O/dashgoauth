@@ -1,4 +1,7 @@
+import { redirect } from "next/dist/server/api-utils";
+import { destroyCookie } from "nookies";
 import { useContext, useEffect } from "react";
+import { AuthTokenError } from "../../errors/AuthTokenError";
 import { setUpAPIClient } from "../../services/api";
 import { api } from "../../services/apiClient";
 
@@ -20,8 +23,20 @@ export default function DashBoar() {
 
 export const getServerSideProps = withSSRAuth(async (ctx) => {
   const apiClient = setUpAPIClient(ctx);
+
   const response = await apiClient.get("/me");
-  console.log(response.data);
+  // try {
+  // } catch (err) {
+  //   destroyCookie(ctx, "nextauth.token");
+  //   destroyCookie(ctx, "nextauth.refreshtoken");
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+
   return {
     props: {},
   };
